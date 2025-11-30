@@ -433,23 +433,23 @@ DrawMadBomber
    dey                        ; 2
    cpy #H_BOMB                ; 2
    bcs .skipDrawHeldBomb      ; 2�
+   bcs .skipDrawHeldBomb      ; 2
    lda (bombGraphicPointer),y ; 5
    sta tempBombGraphic        ; 3
 .skipDrawHeldBomb
    dex                        ; 2
-   bpl .colorMadBomberLoop    ; 2�+1
-   
-   lda SWCHB                  ; 4         read the console switches
-   ldx playerNumber           ; 3         get the current player number
-   bne .onePlayerGame         ; 2�        get player 1 difficulty value
-   asl                        ; 2         shift to get difficulty in carry
-.onePlayerGame
-   asl                        ; 2
-   lda #ONE_COPY              ; 2
-   sta bombNumber             ; 3         reset bomb number at kernel start
-   bcs .skipDoubleSizeBuckets ; 2�
-   lda #DOUBLE_SIZE           ; 2
-.skipDoubleSizeBuckets
+   bpl .colorMadBomberLoop    ; 2+1
+      ; Shrinking Buckets (2 Steps - ROM size optimized)
+    lda #0
+    sta bombNumber
+    
+    lda #DOUBLE_SIZE           ; Default: Medium/Large
+    ldx bombGroup
+    cpx #7                     ; Transition at level 7
+    bcs .setBucketSize
+    lda #QUAD_SIZE             ; Levels 0-4: Extra Large
+.setBucketSize
+    ldx playerNumber
    sta WSYNC                  ; 3
 ;--------------------------------------
    sta NUSIZ1                 ; 3         set size of player buckets
@@ -988,7 +988,7 @@ DetermineMadBomberMovement
    
    IF MAD_BOMBER_MOVEMENT = SMOOTH
    
-      FILL_NOP 4                    ; fill with 4 nops so ROM stays same size
+
 
    ELSE
    
@@ -1124,9 +1124,9 @@ BombAnimation
 .nextBombAnimation
    dex
    bpl .bombAnimationLoop
-   
-   lda bombGroup                    ; get the current bomb group
+     lda bombGroup                    ; get the current bomb group
    lsr                              ; divide the value by 2
+   lsr                              ; divide by 4 (Smoother acceleration)
    clc
    adc #BOMB_DROP_RATE
    adc bombDropVelocity
@@ -1413,7 +1413,7 @@ MaxBombsPerGroup
 ; The following are never read. The bomb group maxes out at 7. It looks as if
 ; they had intended the bomb groups to go to 10.
 ;
-   .byte 255,255,240
+
    
    align 256, 0
    
@@ -1688,11 +1688,6 @@ BucketGraphics
    .byte $AA ; |X.X.X.X.|
    .byte $78 ; |.XXXX...|
    .byte $7C ; |.XXXXX..|
-   .byte $00 ; |........|
-   .byte $00 ; |........|
-   .byte $00 ; |........|
-   .byte $00 ; |........|
-   .byte $00 ; |........|
    .byte $00 ; |........|
    .byte $00 ; |........|
    .byte $00 ; |........|
