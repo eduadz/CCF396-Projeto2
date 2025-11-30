@@ -1351,30 +1351,30 @@ Copyright0
    ;.byte $41 ; |.X.....X|
    ;.byte $0F ; |....XXXX|
 Copyright1
-   .byte $00 ; |........|
-   .byte $50 ; |.X.X....|
-   .byte $58 ; |.X.XX...|
-   .byte $5C ; |.X.XXX..|
-   .byte $56 ; |.X.X.XX.|
-   .byte $53 ; |.X.X..XX|
-   .byte $11 ; |...X...X|
-   .byte $F0 ; |XXXX....|
+   ;.byte $00 ; |........|
+   ;.byte $50 ; |.X.X....|
+   ;.byte $58 ; |.X.XX...|
+   ;.byte $5C ; |.X.XXX..|
+   ;.byte $56 ; |.X.X.XX.|
+   ;.byte $53 ; |.X.X..XX|
+   ;.byte $11 ; |...X...X|
+   ;.byte $F0 ; |XXXX....|
 Copyright2
-   .byte $00 ; |........|
-   .byte $BA ; |X.XXX.X.|
-   .byte $8A ; |X...X.X.|
-   .byte $BA ; |X.XXX.X.|
-   .byte $A2 ; |X.X...X.|
-   .byte $3A ; |..XXX.X.|
-   .byte $80 ; |X.......|
-   .byte $FE ; |XXXXXXX.|
+   ;.byte $00 ; |........|
+   ;.byte $BA ; |X.XXX.X.|
+   ;.byte $8A ; |X...X.X.|
+   ;.byte $BA ; |X.XXX.X.|
+   ;.byte $A2 ; |X.X...X.|
+   ;.byte $3A ; |..XXX.X.|
+   ;.byte $80 ; |X.......|
+   ;.byte $FE ; |XXXXXXX.|
 Copyright3
-   .byte $00 ; |........|
-   .byte $E9 ; |XXX.X..X|
-   .byte $AB ; |X.X.X.XX|
-   .byte $AF ; |X.X.XXXX|
-   .byte $AD ; |X.X.XX.X|
-   .byte $E9 ; |XXX.X..X|
+   ;.byte $00 ; |........|
+   ;.byte $E9 ; |XXX.X..X|
+   ;.byte $AB ; |X.X.X.XX|
+   ;.byte $AF ; |X.X.XXXX|
+   ;.byte $AD ; |X.X.XX.X|
+   ;.byte $E9 ; |XXX.X..X|
 MadBomber
    .byte $00 ; |........|
    .byte $00 ; |........|
