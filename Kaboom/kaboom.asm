@@ -727,11 +727,14 @@ Overscan SUBROUTINE
    sty attractMode                  ; y = 0 from above copyright loop
    
 CalculateBucketPosition
-   sec                              ; set carry for subtraction
-   lda paddleValue                  ; get the paddle value
-   sbc #5                           ; subtract by 5
-   bpl .calcPaddleBucketPosDelta    ; keep the value if not negative
-   tya                              ; set accumulator to 0
+   lda paddleRangeMax       ; Carrega o limite direito da tela
+   sec
+   sbc #5                   ; Subtrai margem
+   sec
+   sbc paddleValue          ; Subtrai posição do mouse (Inverte: Max - Atual)
+   
+   bpl .calcPaddleBucketPosDelta  ; Se positivo, usa o valor
+   lda #0                         ; Se negativo, limita a 0 (canto esquerdo)
 .calcPaddleBucketPosDelta
    sec                              ; set carry for subtraction
    sbc bucketHorizPosition
@@ -1339,14 +1342,14 @@ BucketColors
    REPEND
    
 Copyright0
-   .byte $00 ; |........|
-   .byte $AD ; |X.X.XX.X|
-   .byte $A9 ; |X.X.X..X|
-   .byte $E9 ; |XXX.X..X|
-   .byte $A9 ; |X.X.X..X|
-   .byte $ED ; |XXX.XX.X|
-   .byte $41 ; |.X.....X|
-   .byte $0F ; |....XXXX|
+   ;.byte $00 ; |........|
+   ;.byte $AD ; |X.X.XX.X|
+   ;.byte $A9 ; |X.X.X..X|
+   ;.byte $E9 ; |XXX.X..X|
+   ;.byte $A9 ; |X.X.X..X|
+   ;.byte $ED ; |XXX.XX.X|
+   ;.byte $41 ; |.X.....X|
+   ;.byte $0F ; |....XXXX|
 Copyright1
    .byte $00 ; |........|
    .byte $50 ; |.X.X....|
